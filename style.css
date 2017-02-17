@@ -1,0 +1,25 @@
+/**
+2	 * Copyright (c) 2011 The Chromium Authors. All rights reserved.
+3	 * Use of this source code is governed by a BSD-style license that can be
+4	 * found in the LICENSE file.
+5	 */
+	
+	/* Clone the look and feel of "chrome://" pages. */
+	body {
+	  margin: 10px;
+	  font: 84% Arial, sans-serif
+	}
+	
+	h1 { font-size: 156% }
+	
+	h1 img {
+	  margin: 1px 5px 0 1px;
+	  vertical-align: middle
+	}
+	
+	h2 {
+	  border-top: 1px solid #9cc2ef;
+	  background-color: #ebeff9;
+	  padding: 3px 5px;
+	  font-size: 100%
+	}

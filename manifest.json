@@ -1,0 +1,39 @@
+	{
+	  "name": "Now Playing",
+	  "version": "0.1",
+	  "description":
+	    "Notifies user of currently playing Youtube video.",
+	  //"icons": {"16": "16.png", "48": "48.png", "128": "128.png"},
+	  "icons": {"128": "miku128.png"},
+	  "manifest_version": 2,
+	  "permissions": [
+      	"notifications",
+      	"tabs",
+      	"webNavigation",
+      	// "http://*.youtube.com/",
+      	// "https://*.youtube.com/",
+      	// "https://yt3.ggpht.com/"
+      	"<all_urls>"
+      ],
+
+	  "options_page": "options.html",
+	  "background": { 
+	  	"scripts": ["background.js"] 
+	  	},
+
+	  "manifest_version": 2,
+
+	  "content_scripts":
+      [
+	      {
+	          "matches": ["*://*.youtube.com/*"],
+	          "js": ["nowPlaying.js"]
+	          // "run_at": "document_end"
+	      }
+      ],
+	  // crbug.com/134315
+	  "web_accessible_resources": [
+	    "48.png",
+	    "miku128.png"
+	  ]
+	}

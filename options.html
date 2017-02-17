@@ -1,0 +1,46 @@
+	<!--
+2	  Copyright (c) 2012 The Chromium Authors. All rights reserved.
+3	  Use of this source code is governed by a BSD-style license that can be
+4	  found in the LICENSE file.
+5	
+6	  Brian Kennish <bkennish@chromium.org>
+7	
+8	  An option page for configuring notifications.
+9	-->
+	<!doctype html>
+	<html>
+	  <head>
+	    <title>Notification Demo</title>
+	    <link href="style.css" rel="stylesheet" type="text/css">
+	    <script src="options.js"></script>
+	  </head>
+	  <body>
+	    <h1>
+        <img src="miku128.png" alt="Toast">
+	      Youtube Now Playing
+	    </h1>
+	    <h2>Options</h2>
+	    <form id="options">
+	   	  Enable notifications
+	      <input type="checkbox" name="isActivated" checked>
+	      <br>
+	      <br>
+	      Remove notification after <input type="number" name ="displayTime" defaultValue="10" min="1" style="width: 40px">
+	      <!-- <select name="frequency">
+	        <option>1</option>
+	        <option>2</option>
+	        <option>3</option>
+	        <option>4</option>
+	        <option>5</option>
+	        <option>6</option>
+	        <option>7</option>
+	        <option>8</option>
+	        <option>9</option>
+	        <option>10</option>
+	        <option>15</option>
+	        <option>20</option>
+	      </select> -->
+	      second(s).
+	    </form>
+	  </body>
+	</html>
