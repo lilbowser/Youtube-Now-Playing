@@ -25,64 +25,55 @@ function checkVideoChange() {
 
 
 function getSongTitle(){
-	// <h1 class="watch-title-container">     
-	//   <span id="eow-title" class="watch-title" dir="ltr" title="【Fukase V4】Tokyo Teddy Bear-東京テディベア【VOCALOID カバー】">
-	//     【Fukase V4】Tokyo Teddy Bear-東京テディベア【VOCALOID カバー】
-	//   </span>
-	// </h1>
-	var element = document.getElementsByClassName("watch-title");
+	//	<h3 class="style-scope ytd-compact-radio-renderer">
+    //    <ytd-badge-supported-renderer class="style-scope ytd-compact-radio-renderer">
+    //		<template is="dom-repeat" id="repeat" as="badge" class="style-scope ytd-badge-supported-renderer"></template>
+    //	  </ytd-badge-supported-renderer>
+    //    <span id="video-title" class="style-scope ytd-compact-radio-renderer" title="Mix - 【CYBER DIVA】LOVE【Vocaloid Original Song】">
+    //      Mix - 【CYBER DIVA】LOVE【Vocaloid Original Song】
+    //    </span>
+    //  </h3>
 
-	if (element[0].title != null) {
-		return element[0].title;
-	} else{
-		return "";
-	};
-	
+	//Fixed on 10/15/2017.
+	try{
+		var element = document.getElementById("video-title");
+		var title = element.title;
+		return title;
+	}
+	catch(err){
+		console.log(err);
+		console.log("Title could not be found!");
+		return "Title could not be found!";
+	}
 };
 
 function getChannelImage(){
-// <span class="yt-thumb-clip">
-//   <img width="48" alt="Nogate 虎" height="48" src="photo.jpg">
-//	 <span class="vertical-align"></span>
-// </span>
-
- 	var topElement = document.getElementsByClassName("video-thumb  yt-thumb yt-thumb-48 g-hovercard");
- 	debug(topElement);
- 	if (topElement != null) {
- 		var element = topElement[0].getElementsByClassName("yt-thumb-clip");
- 		if (element != null) {
- 			var imgEle = element[0].getElementsByTagName('img');
- 			if (imgEle != null) {
- 				debug(imgEle[0].getAttribute("data-thumb"));
-		 		var val = imgEle[0].getAttribute("data-thumb");
-		 		if (val == null) {
-		 			val = imgEle[0].src;
-		 		};
-		 		return val;
- 			};
- 		};
- 	};
- 	return "";
+ 	try{
+ 		var avatar = document.getElementById("avatar");
+ 		var avatar_img = avatar.getElementsByTagName('img');
+ 		link = avatar_img[0].src;
+ 		return link;
+ 	}
+ 	catch(err){
+		console.log(err);
+		console.log("Channel Image could not be found!");
+		return "Channel Image could not be found!";
+ 	}
  	
 };
 
 function getChannelName(){
-// <div class="yt-user-info">
-//    <a href="" class="g-hovercard yt-uix-sessionlink      spf-link " data-sessionlink="">Nogate 虎</a>
-// </div>
 
-	var topElement = document.getElementsByClassName("video-thumb  yt-thumb yt-thumb-48 g-hovercard");
-	if (topElement != null) {
-		var element = topElement[0].getElementsByClassName("yt-thumb-clip");
-		if (element != null) {
-	 		var imgEle = element[0].getElementsByTagName('img');
-	 		if (imgEle != null) {
-		 		debug(imgEle[0].alt);
-		 		return imgEle[0].alt;
-		 	};
-	 	};
-	};
-	return "";
+	try{
+ 		var chn_name_container = document.getElementById("owner-name");
+ 		var chn_name = chn_name_container.getElementsByClassName('yt-formatted-string')[0].text;
+ 		return chn_name;
+ 	}
+ 	catch(err){
+		console.log(err);
+		console.log("Channel Name could not be found!");
+		return "Channel Name could not be found!";
+ 	}
 };
 
 function getVideoImage(){
