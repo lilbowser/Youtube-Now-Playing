@@ -7,6 +7,7 @@
  	  "Notification.requestPermission" beforehand).
 	*/
 var tagCount = 0;
+var currentTab;
 var numOfOpenNotifications = 0;
 var notificationIDMap = new Array();
 // function show(song_name, channel_name, img_url) {
@@ -35,6 +36,7 @@ function showC(song_name, channel_name, img_url, video_img_url, tabID) {
 	
 	incrementTag();
 	notificationIDMap[tagCount.toString()] = tabID;
+	currentTab = tabID;
 	numOfOpenNotifications++;
 	console.log("Creating new notification: " + tagCount.toString());
 	console.log(song_name);
@@ -76,6 +78,10 @@ function closeNotification(){
 
 function oldestOpenedNotification(){
 	return tagCount - (numOfOpenNotifications -1);
+}
+
+function mostRecentNotification(){
+	return tagCount;
 }
 
 function incrementTag(){
@@ -121,6 +127,29 @@ chrome.notifications.onClosed.addListener(function(notificationId, byUser){
 	// }
 	notificationIDMap[notificationId] = undefined;
 	numOfOpenNotifications--;
+});
+
+
+chrome.browserAction.onClicked.addListener(function(tab) {
+  // No tabs or host permissions needed!
+  // console.log('Turning ' + tab.url + ' red!');
+  // chrome.tabs.executeScript({
+  //   code: 'document.body.style.backgroundColor="red"'
+  // });
+
+  console.log("Attempting to active tab.");
+  if (currentTab) {
+    	var tabID = currentTab;
+    	console.log("Making tab " + tabID + " active.");
+    	chrome.tabs.update(tabID, {highlighted: true});
+
+    	chrome.tabs.get(tabID, function(tabDetails){
+    		// console.log(tabDetails);
+    		// console.log(tabDetails.windowId);
+    		chrome.windows.update(tabDetails.windowId, {focused: true});
+    	});   	
+    };
+
 });
 
 // Conditionally initialize the options.

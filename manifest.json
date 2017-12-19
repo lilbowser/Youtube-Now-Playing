@@ -1,6 +1,6 @@
 	{
 	  "name": "Now Playing",
-	  "version": "0.2",
+	  "version": "0.3",
 	  "description":
 	    "Notifies user of currently playing Youtube video.",
 	  //"icons": {"16": "16.png", "48": "48.png", "128": "128.png"},
@@ -10,6 +10,7 @@
       	"notifications",
       	"tabs",
       	"webNavigation",
+
       	// "http://*.youtube.com/",
       	// "https://*.youtube.com/",
       	// "https://yt3.ggpht.com/"
@@ -18,8 +19,13 @@
 
 	  "options_page": "options.html",
 	  "background": { 
-	  	"scripts": ["background.js"] 
+	  	"scripts": ["background.js"], 
+	  	"persistent": true
 	  	},
+	  "browser_action": {
+	  	"default_title": "Go to active Youtube page.",
+	  	"default_icon": "miku128.png"
+	  },
 
 	  "manifest_version": 2,
 
