@@ -3,20 +3,24 @@
 var pollingFrequency = 1000; //(ms)
 var currentTitle = "";
 var debugging = true;
+var chn_image_retry_count = 0;
 debug("Youtube Now Playing Injected!");
 
 
-function checkVideoChange() {
+async function checkVideoChange() {
 	setTimeout(checkVideoChange, pollingFrequency);
 	if (currentTitle != document.title) {
+
+		// debug("Doc Title - Current: "+ document.title + " , Former: " + currentTitle)
+		debug("Form Doc Title: " + currentTitle);
 		currentTitle = document.title;
-		debug("Document Title:" + document.title);
+		debug("Cur Doc Title: " + document.title);
 
 		if ('/watch' === location.pathname) {
 			
 			var video_img = getVideoImage();
 	    	var title = getSongTitle();
-	    	var img = getChannelImage();
+	    	var img = await getChannelImage();
 	    	var name = getChannelName();
 	    	debug("Showing Notification");
 	    	showNotification(title, name, img, video_img);
@@ -50,15 +54,27 @@ function getSongTitle(){
 	}
 };
 
-function getChannelImage(){
+async function getChannelImage(){
  	try{
- 		var avatar = document.getElementById("avatar");
- 		var avatar_img = avatar.getElementsByTagName('img');
+ 		//https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep/39914235#39914235
+
+ 		//This should be done better
+ 		var owner_renderer = document.getElementsByTagName('ytd-video-owner-renderer')[0]
+ 		// var avatar = document.getElementById("avatar");
+ 		var avatar_img = owner_renderer.getElementsByTagName('img');
  		link = avatar_img[0].src;
  		debug("Channel Image URL: " + link);
  		//return "miku128.png";
  		if (!link.trim()){
- 			link = "miku128.png";
+ 			if (chn_image_retry_count < 5){
+ 				chn_image_retry_count++;
+ 				debug('Waiting for page load.')
+ 				await sleep(50)
+ 				return getChannelImage();
+ 			}else{
+ 				link = "miku128.png";
+ 			}
+ 			
  		}
  		return link;
  	}
@@ -129,5 +145,11 @@ function debug (message) {
 		console.log(message);
 	};
 };
+
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 
 setTimeout(checkVideoChange, pollingFrequency);
