@@ -20,7 +20,8 @@ async function checkVideoChange() {
 			
 			var video_img = getVideoImage();
 	    	var title = getSongTitle();
-	    	var img = await getChannelImage();
+	    	// var img = await getChannelImage();
+	    	var img = getChannelImage();
 	    	var name = getChannelName();
 	    	debug("Showing Notification");
 	    	showNotification(title, name, img, video_img);
@@ -54,7 +55,8 @@ function getSongTitle(){
 	}
 };
 
-async function getChannelImage(){
+// async 
+function getChannelImage(){
  	try{
  		//https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep/39914235#39914235
 
@@ -69,7 +71,7 @@ async function getChannelImage(){
  			if (chn_image_retry_count < 5){
  				chn_image_retry_count++;
  				debug('Waiting for page load.')
- 				await sleep(50)
+ 				// await sleep(50)
  				return getChannelImage();
  			}else{
  				link = "miku128.png";
