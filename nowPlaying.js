@@ -91,7 +91,7 @@ function getChannelImage(){
 function getChannelName(){
 
 	try{
- 		var chn_name_container = document.getElementById("owner-name");
+ 		var chn_name_container = document.getElementById("owner-container");
  		var chn_name = chn_name_container.getElementsByClassName('yt-formatted-string')[0].text;
  		debug("Channel Name: " + chn_name);
  		return chn_name;
